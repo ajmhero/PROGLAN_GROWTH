@@ -1,0 +1,4 @@
+#Thu Jul 19 15:03:43 PHT 2018
+base.0=/Users/aj/Documents/FlutterProj/proglan_growth/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
