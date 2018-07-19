@@ -1,6 +1,6 @@
 # proglan_growth
 
-A new Flutter project.
+A new Flutter/Dart project for PROGLAN by Adriel Justin Ticzon and Andrew Nicholas De Leon.
 
 ## Getting Started
 
