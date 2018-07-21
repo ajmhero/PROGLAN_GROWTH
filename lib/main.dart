@@ -12,10 +12,10 @@ void main(){
     home : new LandingPage(),
       routes: <String,WidgetBuilder>{
         "/Home":(BuildContext context) => new Home(),
-        "/add_item":(BuildContext context) => new Add_Item(),
+        "/add_item":(BuildContext context) => new AddItem(),
         "/schedule":(BuildContext context) => new Schedule(),
         "/goals":(BuildContext context) => new Goals(),
-        "/todo":(BuildContext context) => new Todo_list(),
+        "/todo":(BuildContext context) => new TodoList(),
       }
   ));
 }

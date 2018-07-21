@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './home.dart';
 
-class Add_Item extends StatelessWidget{
+class AddItem extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return new MaterialApp(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Todo_list extends StatelessWidget{
+class TodoList extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return new Material(
