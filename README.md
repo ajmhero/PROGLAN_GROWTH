@@ -5,7 +5,12 @@ A new Flutter/Dart project for PROGLAN by Adriel Justin Ticzon and Andrew Nichol
 Project uses SqlFlite as it's database.
 
 Inspired by John Fish
+
 channel: https://www.youtube.com/user/MrFish235
+
+Image link for the logo used:
+
+https://www.freevector.com/green-cartoon-tree-vector-set-18825
 
 
 ## Getting Started
