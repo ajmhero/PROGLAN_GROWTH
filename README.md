@@ -2,7 +2,9 @@
 
 A new Flutter/Dart project for PROGLAN by Adriel Justin Ticzon and Andrew Nicholas De Leon.
 
-Project uses SqlFlite as it's database.
+Project uses the REST API as it's database.
+
+link to the API : proglangrowth.000webhostapp.com/api/
 
 Inspired by John Fish
 
