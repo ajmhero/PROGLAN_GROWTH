@@ -18,10 +18,10 @@ class LandingPage extends StatelessWidget {
                       new Image.asset("images/logo.png",height: 300.0,),
                       new Text("Welcome to", style: new TextStyle(fontWeight: FontWeight.bold,fontSize:25.0),),
                       new Text("Growth!", style: new TextStyle(fontWeight: FontWeight.bold,fontSize:50.0),),
-                      new Padding(padding: new EdgeInsets.only(top:50.0)),
+                      new Padding(padding: new EdgeInsets.only(top:35.0)),
                       new Text("Your Productivity Manager", style: new TextStyle(fontSize:20.0),),
-                      new Padding(padding: new EdgeInsets.only(top:100.0)),
-                      new Text("Tap anywhere to Begin!",style: new TextStyle(fontStyle: FontStyle.italic),)
+                      new Padding(padding: new EdgeInsets.only(top:120.0)),
+                      new Text("Tap anywhere to begin!",style: new TextStyle(fontStyle: FontStyle.italic))
                   ],
                 ),
               ),

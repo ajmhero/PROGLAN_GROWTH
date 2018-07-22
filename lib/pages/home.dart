@@ -11,13 +11,6 @@ class Home extends StatelessWidget{
              automaticallyImplyLeading: false,
              title: new Text("Growth"),
              backgroundColor: Colors.deepPurpleAccent,
-             actions: <Widget>[
-               new IconButton(
-                 icon: new Icon(Icons.add_circle_outline,color: Colors.white),
-                 tooltip: 'Create new schedule',
-                 onPressed: (){Navigator.of(context).pushNamed("/add_item");},
-               )
-             ],
            ),
            new Container(
              padding: new EdgeInsets.all(20.0),
@@ -36,8 +29,8 @@ class Home extends StatelessWidget{
                               children: <Widget>[
                                  new Padding(padding: new EdgeInsets.only(top: 30.0)),
                                  new ListTile(
-                                  title: new Text('Schedule',textAlign: TextAlign.center,style: new TextStyle(fontWeight: FontWeight.bold)),
-                                    subtitle: new Text('Your schedule for the day',textAlign: TextAlign.center,),
+                                    title: new Text('Schedule',textAlign: TextAlign.center,style: new TextStyle(fontWeight: FontWeight.bold)),
+                                    subtitle: new Text('Schedule for the day',textAlign: TextAlign.center,),
                               ),
                                new Padding(padding: new EdgeInsets.only(top: 30.0)),    
                             ],
@@ -58,8 +51,8 @@ class Home extends StatelessWidget{
                               children: <Widget>[
                                  new Padding(padding: new EdgeInsets.only(top: 30.0)),
                                  new ListTile(
-                                  title: new Text('To Do List',textAlign: TextAlign.center,style: new TextStyle(fontWeight: FontWeight.bold)),
-                                    subtitle: new Text('Your List of things to do',textAlign: TextAlign.center,),
+                                    title: new Text('To Do List',textAlign: TextAlign.center,style: new TextStyle(fontWeight: FontWeight.bold)),
+                                    subtitle: new Text('List of things to do',textAlign: TextAlign.center,),
                               ),
                                new Padding(padding: new EdgeInsets.only(top: 30.0)),    
                             ],
@@ -80,8 +73,8 @@ class Home extends StatelessWidget{
                               children: <Widget>[
                                  new Padding(padding: new EdgeInsets.only(top: 30.0)),
                                  new ListTile(
-                                  title: new Text('Goals',textAlign: TextAlign.center,style: new TextStyle(fontWeight: FontWeight.bold)),
-                                    subtitle: new Text('Your Goals to reach for the day',textAlign: TextAlign.center,),
+                                    title: new Text('Goals',textAlign: TextAlign.center,style: new TextStyle(fontWeight: FontWeight.bold)),
+                                    subtitle: new Text('Goals to reach for the day',textAlign: TextAlign.center,),
                               ),
                                new Padding(padding: new EdgeInsets.only(top: 30.0)),    
                             ],
