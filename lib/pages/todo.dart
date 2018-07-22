@@ -19,8 +19,8 @@ class _TodoState extends State<TodoList> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Goals"),
-        backgroundColor: Colors.green,
+        title: new Text("To Do List"),
+        backgroundColor: Colors.redAccent,
         actions:<Widget>[
                new IconButton(
                  icon: new Icon(Icons.add_circle_outline,color: Colors.white),
