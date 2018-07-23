@@ -59,15 +59,13 @@ class ItemList extends StatelessWidget {
         return new Container(
           padding: const EdgeInsets.all(5.0),
           child: new GestureDetector(
-            onTap: ()=>Navigator.of(context).push(
-              new MaterialPageRoute(
-            //    builder: (BuildContext context)=> new Detail(list:list , index: i,)
-              )
-            ),
             child: new Card(
+              elevation: 2.0,
+              margin: new EdgeInsets.all(10.0),
               child: new ListTile(
+                contentPadding: new EdgeInsets.all(10.0),
                 title: new Text(list[i]['GoalName']),
-                leading: new Icon(Icons.widgets),
+                leading: new Icon(Icons.accessibility_new),
                 subtitle: new Text(list[i]['Status']),
               ),
             ),
