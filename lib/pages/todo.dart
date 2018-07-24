@@ -4,12 +4,32 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class TodoList extends StatefulWidget {
+
+  final List list;
+  final int index;
+  TodoList({this.list, this.index});
+
   @override
   _TodoState createState() => new _TodoState();
 }
 
 class _TodoState extends State<TodoList> {
-  Future<List> getGoals() async {
+
+    //REFRESHER
+    var refreshKey = new GlobalKey<RefreshIndicatorState>();
+    Future<Null> refreshList() async {
+        refreshKey.currentState?.show(atTop: false);
+         await new Future.delayed(new Duration(seconds: 2));
+
+        setState(() {
+        new _TodoState();
+        });
+
+        return null;
+      }
+
+  //REST API
+  Future<List> getTodo() async {
     final response = await http
         .get("https://proglangrowth.000webhostapp.com/api/getTodo.php");
     return json.decode(response.body);
@@ -24,29 +44,41 @@ class _TodoState extends State<TodoList> {
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.add_circle_outline, color: Colors.white),
-            tooltip: 'Create new schedule',
+            tooltip: 'Create new Task',
             onPressed: () {
               Navigator.of(context).pushNamed("/add_todo");
             },
           )
         ],
       ),
-      body: new FutureBuilder<List>(
-        future: getGoals(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
+      body: new RefreshIndicator(
+        key: refreshKey,
+        onRefresh: ()=>refreshList(),
+        child: new FutureBuilder<List>(
+          future: getTodo(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
 
-          return snapshot.hasData
-              ? new ItemList(
-                  list: snapshot.data,
-                )
-              : new Center(
-                  child: new CircularProgressIndicator(
-                    backgroundColor: Colors.blueGrey,
-                  ),
-                );
-        },
-      ),
+            return snapshot.hasData
+                ? new ItemList(
+                    list: snapshot.data,
+                  )
+                : new Center(
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new Text("Fetching tasks",style: new TextStyle(fontSize: 25.0,color: Colors.black87),),
+                        new Padding(padding: new EdgeInsets.all(20.0),),
+                          new CircularProgressIndicator(backgroundColor: Colors.blueGrey,),
+                          new Padding(padding: new EdgeInsets.all(15.0),),
+                           new Text("Please wait...",style: new TextStyle(fontSize: 20.0,color: Colors.black87),),
+                           
+                      ],
+                    )              
+                  );
+            },
+          ),
+        ),
     );
   }
 }
@@ -54,7 +86,7 @@ class _TodoState extends State<TodoList> {
 class ItemList extends StatelessWidget {
 
 
-  void deleteSchedule(String id) {
+  void deleteTodo(String id) {
     var url = "https://proglangrowth.000webhostapp.com/api/deleteTodo.php";
     http.post(url, body: {'ToDoID': id, 'Archived': "1"});
   }
@@ -92,7 +124,7 @@ class ItemList extends StatelessWidget {
             ),
             color: Colors.green,
             onPressed: () {
-              deleteSchedule(id);
+              deleteTodo(id);
               Navigator.pop(context);
               Navigator.popAndPushNamed(context, "/todo");
             },
@@ -103,53 +135,33 @@ class ItemList extends StatelessWidget {
       showDialog(context: context, child: alertDialog);
     }
 
-    void chooseDialog(String id, String name) {
-      AlertDialog alertDialog = new AlertDialog(
-          content: new Container(
-        child: new Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            new Row(
-              children: <Widget>[
-                new FlatButton(
-                  onPressed: null,
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      new Text(
-                        "Edit " + name.toLowerCase(),
-                        style:
-                            new TextStyle(fontSize: 15.0, color: Colors.black),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-            new Row(
-              children: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    deleteDialog(id, name);
-                  },
-                  child: new Row(
-                    children: <Widget>[
-                      new Text(
-                        "Delete " + name.toLowerCase(),
-                        style: new TextStyle(
-                            fontSize: 15.0, color: Colors.redAccent),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
-      ));
-      showDialog(context: context, child: alertDialog);
-    }
+    void chooseDialog(String id, String name){
+  AlertDialog alertDialog = new AlertDialog(
+    content: new Container(
+      child: new Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+              new FlatButton(
+                onPressed:(){
+                  Navigator.pop(context);
+                  deleteDialog(id, name);
+                },
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new Container(
+                      child:  new Text("Delete " + name.toLowerCase(),style: new TextStyle(fontSize: 20.0,color: Colors.redAccent),),
+                    ),    
+                  ],
+                ),
+              )
+            ],
+          )
+    )
+  );
+
+  showDialog(context: context, child: alertDialog);
+}
 
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
@@ -158,7 +170,7 @@ class ItemList extends StatelessWidget {
           padding: const EdgeInsets.all(5.0),
           child: new InkWell(
             onLongPress: () =>
-                chooseDialog(list[i]['ToDoID'], list[i]['ItemName']),
+                deleteDialog(list[i]['ToDoID'], list[i]['ItemName']),
             child: new Card(
               child: new ListTile(
                 title: new Text(list[i]['ItemName']),

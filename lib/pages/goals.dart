@@ -9,6 +9,21 @@ class Goals extends StatefulWidget {
 }
 
 class _GoalsState extends State<Goals> {
+
+    //REFRESHER
+    var refreshKey = new GlobalKey<RefreshIndicatorState>();
+    Future<Null> refreshList() async {
+        refreshKey.currentState?.show(atTop: false);
+         await new Future.delayed(new Duration(seconds: 2));
+
+        setState(() {
+        new _GoalsState();
+        });
+
+        return null;
+      }
+
+  //REST API
   Future<List> getGoals() async {
     final response = await http
         .get("https://proglangrowth.000webhostapp.com/api/getGoals.php");
@@ -31,22 +46,34 @@ class _GoalsState extends State<Goals> {
           )
         ],
       ),
-      body: new FutureBuilder<List>(
-        future: getGoals(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
+      body: new RefreshIndicator(
+        key: refreshKey,
+        onRefresh: ()=>refreshList(),
+        child: new FutureBuilder<List>(
+          future: getGoals(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
 
-          return snapshot.hasData
-              ? new ItemList(
-                  list: snapshot.data,
-                )
-              : new Center(
-                  child: new CircularProgressIndicator(
-                    backgroundColor: Colors.blueGrey,
-                  ),
-                );
-        },
-      ),
+            return snapshot.hasData
+                ? new ItemList(
+                    list: snapshot.data,
+                  )
+                : new Center(
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new Text("Fetching Goals",style: new TextStyle(fontSize: 25.0,color: Colors.black87),),
+                        new Padding(padding: new EdgeInsets.all(20.0),),
+                          new CircularProgressIndicator(backgroundColor: Colors.blueGrey,),
+                          new Padding(padding: new EdgeInsets.all(15.0),),
+                           new Text("Please wait...",style: new TextStyle(fontSize: 20.0,color: Colors.black87),),
+                           
+                      ],
+                    )              
+                  );
+            },
+          ),
+        ),
     );
   }
 }
@@ -101,54 +128,33 @@ class ItemList extends StatelessWidget {
 }
 
 
-    void chooseDialog(String id, String name) {
-      AlertDialog alertDialog = new AlertDialog(
-          content: new Container(
-        child: new Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            new Row(
-              children: <Widget>[
-                new FlatButton(
-                  onPressed: null,
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      new Text(
-                        "Edit " + name.toLowerCase(),
-                        style:
-                            new TextStyle(fontSize: 15.0, color: Colors.black),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-            new Row(
-              children: <Widget>[
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    deleteDialog(id, name);
-                  },
-                  child: new Row(
-                    children: <Widget>[
-                      new Text(
-                        "Delete " + name.toLowerCase(),
-                        style: new TextStyle(
-                            fontSize: 15.0, color: Colors.redAccent),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
-      ));
+    void chooseDialog(String id, String name){
+  AlertDialog alertDialog = new AlertDialog(
+    content: new Container(
+      child: new Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+              new FlatButton(
+                onPressed:(){
+                  Navigator.pop(context);
+                  deleteDialog(id, name);
+                },
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new Container(
+                      child:  new Text("Delete " + name.toLowerCase(),style: new TextStyle(fontSize: 20.0,color: Colors.redAccent),overflow: TextOverflow.ellipsis),
+                    ),    
+                  ],
+                ),
+              )
+            ],
+          )
+    )
+  );
 
-      showDialog(context: context, child: alertDialog);
-    }
+  showDialog(context: context, child: alertDialog);
+}
 
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
@@ -156,7 +162,7 @@ class ItemList extends StatelessWidget {
         return new Container(
           padding: const EdgeInsets.all(5.0),
           child: new InkWell(
-            onLongPress:()=> chooseDialog(list[i]['GoalID'],list[i]['GoalName']),
+            onLongPress:()=> deleteDialog(list[i]['GoalID'],list[i]['GoalName']),
             child: new Card(
               child: new ListTile(
                 title: new Text(list[i]['GoalName']),
