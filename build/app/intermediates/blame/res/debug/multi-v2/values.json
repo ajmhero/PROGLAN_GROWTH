@@ -1,10 +1,34 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/aj/Documents/GitHub/PROGLAN_GROWTH/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "D:\\3rd Term\\PROGLAN\\GROWTH\\PROGLAN_GROWTH\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "/Users/aj/Documents/GitHub/PROGLAN_GROWTH/android/app/src/main/res/values/styles.xml",
+                    "source": "D:\\3rd Term\\PROGLAN\\GROWTH\\PROGLAN_GROWTH\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "57",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "353"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "347"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\Users\\aj\\Documents\\FlutterProj\\proglan_growth\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "map": [
+                {
+                    "source": "D:\\Users\\aj\\Documents\\FlutterProj\\proglan_growth\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -17,10 +41,10 @@
             ]
         },
         {
-            "outputFile": "/Users/aj/Documents/FlutterProj/proglan_growth/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "D:\\Users\\aj\\Documents\\GitHub\\PROGLAN_GROWTH\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "/Users/aj/Documents/FlutterProj/proglan_growth/android/app/src/main/res/values/styles.xml",
+                    "source": "D:\\Users\\aj\\Documents\\GitHub\\PROGLAN_GROWTH\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

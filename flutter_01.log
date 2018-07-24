@@ -1,0 +1,85 @@
+Flutter crash report; please file at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter packages get
+
+## exception
+
+FormatException: FormatException: No ':' on line (at offset 12)
+
+```
+#0      parse (package:package_config/packages_file.dart:53)
+#1      _parse (package:flutter_tools/src/dart/package_map.dart:14)
+#2      PackageMap.load (package:flutter_tools/src/dart/package_map.dart:35)
+#3      PackageMap.map (package:flutter_tools/src/dart/package_map.dart:39)
+#4      FlutterCommandRunner._checkFlutterCopy (package:flutter_tools/src/runner/flutter_command_runner.dart:451)
+#5      FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:281)
+<asynchronous suspension>
+#6      AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:142)
+<asynchronous suspension>
+#7      _rootRun (dart:async/zone.dart:1126)
+#8      _CustomZone.run (dart:async/zone.dart:1023)
+#9      runZoned (dart:async/zone.dart:1501)
+#10     AppContext.run (package:flutter_tools/src/base/context.dart:141)
+<asynchronous suspension>
+#11     FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:265)
+<asynchronous suspension>
+#12     CommandRunner.run.<anonymous closure> (package:args/command_runner.dart:109)
+#13     new Future.sync (dart:async/future.dart:222)
+#14     CommandRunner.run (package:args/command_runner.dart:109)
+#15     FlutterCommandRunner.run (package:flutter_tools/src/runner/flutter_command_runner.dart:174)
+#16     run.<anonymous closure> (package:flutter_tools/runner.dart:59)
+<asynchronous suspension>
+#17     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:142)
+<asynchronous suspension>
+#18     _rootRun (dart:async/zone.dart:1126)
+#19     _CustomZone.run (dart:async/zone.dart:1023)
+#20     runZoned (dart:async/zone.dart:1501)
+#21     AppContext.run (package:flutter_tools/src/base/context.dart:141)
+<asynchronous suspension>
+#22     runInContext (package:flutter_tools/src/context_runner.dart:43)
+<asynchronous suspension>
+#23     run (package:flutter_tools/runner.dart:50)
+#24     main (package:flutter_tools/executable.dart:49)
+<asynchronous suspension>
+#25     main (file:///D:/3rd%20Term/PROGLAN/flutter/packages/flutter_tools/bin/flutter_tools.dart:8)
+#26     _startIsolate.<anonymous closure> (dart:isolate-patch/dart:isolate/isolate_patch.dart:277)
+#27     _RawReceivePortImpl._handleMessage (dart:isolate-patch/dart:isolate/isolate_patch.dart:165)
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel beta, v0.5.1, on Microsoft Windows [Version 10.0.17134.165], locale en-US)
+    • Flutter version 0.5.1 at D:\3rd Term\PROGLAN\flutter
+    • Framework revision c7ea3ca377 (8 weeks ago), 2018-05-29 21:07:33 +0200
+    • Engine revision 1ed25ca7b7
+    • Dart version 2.0.0-dev.58.0.flutter-f981f09760
+
+[!] Android toolchain - develop for Android devices (Android SDK 27.0.3)
+    • Android SDK at C:\Users\Niko\AppData\Local\Android\sdk
+    • Android NDK location not configured (optional; useful for native profiling support)
+    • Platform android-P, build-tools 27.0.3
+    • Java binary at: D:\Program Files\Android\Android Studio\jre\bin\java
+    • Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1024-b02)
+    ! Some Android licenses not accepted.  To resolve this, run: flutter doctor --android-licenses
+
+[✓] Android Studio (version 3.1)
+    • Android Studio at D:\Program Files\Android\Android Studio
+    ✗ Flutter plugin not installed; this adds Flutter specific functionality.
+    ✗ Dart plugin not installed; this adds Dart specific functionality.
+    • Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1024-b02)
+
+[!] IntelliJ IDEA Ultimate Edition (version 2017.2)
+    • IntelliJ at C:\Program Files\JetBrains\IntelliJ IDEA 2017.2.3
+    ✗ Flutter plugin not installed; this adds Flutter specific functionality.
+    ✗ Dart plugin not installed; this adds Dart specific functionality.
+    • For information about installing plugins, see
+      https://flutter.io/intellij-setup/#installing-the-plugins
+
+[!] Connected devices
+    ! No devices available
+
+! Doctor found issues in 3 categories.
+```
