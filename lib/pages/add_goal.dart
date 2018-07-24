@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class AddGoal extends StatefulWidget {
   @override
-  _AddGoalState createState() => _AddGoalState();
+  _AddGoalState createState() => new _AddGoalState();
 }
 
 class _AddGoalState extends State<AddGoal> {
@@ -53,7 +53,7 @@ class _AddGoalState extends State<AddGoal> {
 //MAIN FORM
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
         appBar: new AppBar(
           title: new Text("Add Goal"),
           backgroundColor: Colors.green,
@@ -66,7 +66,7 @@ class _AddGoalState extends State<AddGoal> {
                 new TextFormField(
                   autofocus: false,
                   controller: goalName,
-                  decoration: InputDecoration(
+                  decoration: new InputDecoration(
                       hintText: "What's your goal?", labelText: "Goal"),
                   validator: (value) {
                     if (value.isEmpty) {
