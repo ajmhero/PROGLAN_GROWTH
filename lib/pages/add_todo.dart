@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class AddTodo extends StatefulWidget {
   @override
-  _AddGoalState createState() => _AddGoalState();
+  _AddGoalState createState() =>new _AddGoalState();
 }
 
 class _AddGoalState extends State<AddTodo> {
@@ -53,7 +53,7 @@ class _AddGoalState extends State<AddTodo> {
 //MAIN FORM
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
         appBar: new AppBar(
           title: new Text("Add To Do"),
           backgroundColor: Colors.red,
@@ -66,7 +66,7 @@ class _AddGoalState extends State<AddTodo> {
                 new TextFormField(
                   autofocus: false,
                   controller: itemName,
-                  decoration: InputDecoration(
+                  decoration:new InputDecoration(
                       hintText: "What needs to be done?", labelText: "Task"),
                   validator: (value) {
                     if (value.isEmpty) {

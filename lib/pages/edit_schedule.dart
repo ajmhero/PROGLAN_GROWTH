@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 
 class EditSchedule extends StatefulWidget {
-
   final List list;
   final int index;
 
   EditSchedule({this.list, this.index});
 
   @override
-  _EditScheduleState createState() => _EditScheduleState();
+  _EditScheduleState createState() => new _EditScheduleState();
 }
 
 class _EditScheduleState extends State<EditSchedule> {
@@ -38,7 +37,7 @@ class _EditScheduleState extends State<EditSchedule> {
 
     showDialog(context: context, child: alertDialog);
   }
- 
+
   //form key
   final _formKey = new GlobalKey<FormState>();
 
