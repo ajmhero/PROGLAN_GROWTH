@@ -186,7 +186,7 @@ void deleteSchedule(String id){
           new Row(
             children: <Widget>[
               new FlatButton(
-                onPressed: null,
+                onPressed: (){Navigator.of(context).pushNamed("/edit_schedule");},
                 child: new Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
