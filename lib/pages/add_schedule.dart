@@ -112,7 +112,7 @@ class _AddScheduleState extends State<AddSchedule> {
            children: <Widget>[
             new Row(
                  children: <Widget>[
-                   new Text("Time Start: " + _timeStart.format(context),style: new TextStyle(fontSize: 20.0),),
+                   new Text("Time Start: "),
                    new Padding(padding: new EdgeInsets.only(right: 10.0),),
                     new Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -120,10 +120,10 @@ class _AddScheduleState extends State<AddSchedule> {
                    new RaisedButton(
                      onPressed: (){_selectTimeStart(context);},
                      textColor: Colors.white,
-                     color: Colors.amber,
+                     color: Colors.orange,
                      child: new Row(
                        children: <Widget>[
-                         new Text("Select Time")
+                         new Text(_timeStart.format(context))
                        ],
                      ),
                    )
@@ -136,7 +136,7 @@ class _AddScheduleState extends State<AddSchedule> {
            children: <Widget>[
             new Row(
                  children: <Widget>[
-                   new Text("Time End: " + _timeEnd.format(context),style: new TextStyle(fontSize: 20.0),),
+                   new Text("Time End: "),
                    new Padding(padding: new EdgeInsets.only(right: 10.0),),
                     new Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -144,10 +144,10 @@ class _AddScheduleState extends State<AddSchedule> {
                    new RaisedButton(
                      onPressed: (){_selectTimeEnd(context);},
                      textColor: Colors.white,
-                     color: Colors.amberAccent,
+                     color: Colors.deepOrangeAccent,
                      child: new Row(
                        children: <Widget>[
-                         new Text("Select Time")
+                         new Text(_timeEnd.format(context))
                        ],
                      ),
                    )

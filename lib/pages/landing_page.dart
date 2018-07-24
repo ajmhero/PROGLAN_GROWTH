@@ -8,7 +8,7 @@ class LandingPage extends StatelessWidget {
         child: new Container(
         color: Colors.white,
           child: new InkWell(
-            onTap: (){Navigator.of(context).pushNamed("/Home");},
+            onTap: (){Navigator.of(context).popAndPushNamed("/Home");},
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

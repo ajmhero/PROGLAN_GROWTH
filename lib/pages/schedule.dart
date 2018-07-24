@@ -1,14 +1,34 @@
 import 'dart:async';
 import 'dart:convert';
+import './edit_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 
 class Schedule extends StatefulWidget {
+
+   final List list;
+  final int index;
+
+  Schedule({this.list, this.index});
   @override
   _ScheduleState createState() => new _ScheduleState();
+  
 }
 class _ScheduleState extends State<Schedule> {
+   var refreshKey = new GlobalKey<RefreshIndicatorState>();
+    Future<Null> refreshList() async {
+        refreshKey.currentState?.show(atTop: false);
+         await new Future.delayed(new Duration(seconds: 2));
+
+        setState(() {
+          //getSchedule();
+        new _ScheduleState();
+        });
+
+        return null;
+      }
+
 //Alert Dialog
 
  void deleteAllDialog(){
@@ -35,7 +55,7 @@ class _ScheduleState extends State<Schedule> {
         onPressed: (){
             deleteAllSchedule();
             Navigator.pop(context);
-            Navigator.popAndPushNamed(context,"/schedule");
+            refreshList();
         },
       ),
     ],
@@ -43,40 +63,6 @@ class _ScheduleState extends State<Schedule> {
 
   showDialog(context: context, child: alertDialog);
 }
-
-void deleteDialog(int id,String schedulename){
-  AlertDialog alertDialog = new AlertDialog(
-    content: new Text("Clear" + schedulename +" schedule?"),
-    actions: <Widget>[
-      new FlatButton(
-        child: new Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text("Close",style: new TextStyle(color: Colors.redAccent,))
-          ],
-        ),
-        onPressed: ()=> Navigator.pop(context),
-      ),
-      new RaisedButton(
-        child: new Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text("Yes",style: new TextStyle(color: Colors.white,))
-          ],
-        ),
-        color: Colors.green,
-        onPressed: (){
-            deleteAllSchedule();
-            Navigator.pop(context);
-            Navigator.popAndPushNamed(context,"/schedule");
-        },
-      ),
-    ],
-  );
-
-  showDialog(context: context, child: alertDialog);
-}
-
   
 //REST API
  Future<List> getSchedule() async {
@@ -96,7 +82,7 @@ void deleteDialog(int id,String schedulename){
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Schedule"),
-        backgroundColor: Colors.greenAccent,
+        backgroundColor: Colors.pinkAccent,
         actions:<Widget>[
                 new IconButton(
                   icon: new Icon(Icons.delete,color: Colors.white),
@@ -110,25 +96,41 @@ void deleteDialog(int id,String schedulename){
           ),
         ],
       ),
-      body: new FutureBuilder<List>(
-        future: getSchedule(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
+      body: new RefreshIndicator(
+        key: refreshKey,
+        onRefresh: ()=>refreshList(),
+        child: new FutureBuilder<List>(
+          future: getSchedule(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
 
-          return snapshot.hasData
-              ? new ItemList(
-                  list: snapshot.data,
-                )
-              : new Center(
-                  child: new CircularProgressIndicator(backgroundColor: Colors.blueGrey,),
-                );
-        },
-      ),
-    );
+            return snapshot.hasData
+                ? new ItemList(
+                    list: snapshot.data,
+                  )
+                : new Center(
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new Text("Fetching Schedule",style: new TextStyle(fontSize: 25.0,color: Colors.black87),),
+                        new Padding(padding: new EdgeInsets.all(20.0),),
+                          new CircularProgressIndicator(backgroundColor: Colors.blueGrey,),
+                          new Padding(padding: new EdgeInsets.all(15.0),),
+                           new Text("Please wait...",style: new TextStyle(fontSize: 20.0,color: Colors.black87),),
+                           
+                      ],
+                    )              
+                  );
+            },
+          ),
+        ),
+      );
+      }
     }
-  }
 
 class ItemList extends StatelessWidget {
+
+  
 
 void deleteSchedule(String id){
   var url="https://proglangrowth.000webhostapp.com/api/deleteSchedule.php";
@@ -146,7 +148,9 @@ void deleteSchedule(String id){
 
  void deleteDialog(String id,String name){
   AlertDialog alertDialog = new AlertDialog(
-    content: new Text("Clear "+ name.toLowerCase() +" schedule?"),
+    content:new Container(
+      child: new Text("Clear "+ name.toLowerCase() +" schedule?",overflow: TextOverflow.ellipsis,)
+    ) ,
     actions: <Widget>[
       new FlatButton(
         child: new Row(
@@ -168,7 +172,7 @@ void deleteSchedule(String id){
         onPressed: (){
             deleteSchedule(id);
             Navigator.pop(context);
-            Navigator.popAndPushNamed(context,"/schedule");
+             Navigator.pushReplacementNamed(context, "/schedule");
         },
       ),
     ],
@@ -183,50 +187,40 @@ void deleteSchedule(String id){
       child: new Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          new Row(
-            children: <Widget>[
-              new FlatButton(
-                onPressed: null,
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    new Text("Edit " + name.toLowerCase(),style: new TextStyle(fontSize: 15.0,color: Colors.black),)
-                  ],
-                ),
-              )
-            ],
-          ),
-          new Row(
-            children: <Widget>[
               new FlatButton(
                 onPressed:(){
                   Navigator.pop(context);
                   deleteDialog(id, name);
                 },
                 child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new Text("Delete " + name.toLowerCase(),style: new TextStyle(fontSize: 15.0,color: Colors.redAccent),)
+                    new Container(
+                      child:  new Text("Delete " + name.toLowerCase(),style: new TextStyle(fontSize: 20.0,color: Colors.redAccent),),
+                    ),    
                   ],
                 ),
               )
             ],
           )
-        ],
-      ),
     )
   );
 
   showDialog(context: context, child: alertDialog);
 }
 
-
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
         return new Container(
           padding: const EdgeInsets.all(5.0),
-          child: new InkWell(
-            onLongPress:()=> chooseDialog(list[i]['ScheduleID'],list[i]['ScheduleName']),
+          child: new GestureDetector(
+            onTap: ()=>Navigator.of(context).push(
+              new MaterialPageRoute(
+                builder: (BuildContext context)=> new EditSchedule(list:list , index: i,)
+              )
+            ),
+            onLongPress:()=> chooseDialog(list[i]['ScheduleID'],list[i]['TimeStart'] + " - " + list[i]['TimeStart'] ),
             child: new Card(
               child: new ListTile(
                 title: new Text(list[i]['ScheduleName']),
